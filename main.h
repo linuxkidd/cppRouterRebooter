@@ -47,6 +47,7 @@ unsigned int routerReset = 0;
 
 unsigned int buttonPresses = 0;
 unsigned int firstPress = 0;
+unsigned int wifiConnected = 0;
 
 String testssid = "";
 String testpass = "";

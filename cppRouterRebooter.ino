@@ -98,34 +98,44 @@ void connectToWifi() {
 
 void onWifiConnect(const WiFiEventStationModeGotIP& event) {
   Serial.println("WiFi: Connected");
+  wifiConnected = 1;
   wifiReconnectTimer.detach();
+
   ledSetToggleRate();
   connectToMqtt();
+
   timeClient.begin();
   ntpTimer.attach(60,[]() { timeClient.update(); });
-  relayTimer.detach();
+
+  if(relayTimer.active())
+    relayTimer.detach();
   routerReset = 0;
   relayTimer.attach(0.1,routerResetRoutine);
   testTimer.attach(test_interval,tcpTest);
+
   setup_webServer();
   tcpTest();
 }
 
 void onWifiDisconnect(const WiFiEventStationModeDisconnected& event) {
   Serial.println("WiFi: Disconnected");
-  // ensure we don't reconnect to MQTT while reconnecting to Wi-Fi
-  mqttReconnectTimer.detach();
-  ntpTimer.detach();
-  // Set fast blink on LED
-  ledTimer.detach();
-  ledTimer.attach_ms(300,ledToggle);
-  // disable TCP test
-  testTimer.detach();
+  if(wifiConnected) {
+    wifiConnected = 0;
+
+    mqttReconnectTimer.detach();
+    ntpTimer.detach();
+
+    // Set fast blink on LED
+    ledTimer.detach();
+    ledTimer.attach(0.1,ledToggle);
+
+    // disable TCP test
+    testTimer.detach();
+    routerReset = 1;
+    relayTimer.attach(relay_min_on,routerResetRoutine);
+  }
   if(!wifiReconnectTimer.active())
     wifiReconnectTimer.attach(30, connectToWifi);
-  relayTimer.detach();
-  routerReset = 1;
-  relayTimer.attach(relay_min_on,routerResetRoutine);
 }
 
 bool setupMqtt() {
@@ -267,6 +277,10 @@ void setup() {
   digitalWrite(pin_led, LOW);
 
   buttonTimer.attach_ms(10,checkButton);
+
+  routerReset = 1;
+  relayTimer.attach(relay_min_on,routerResetRoutine);
+
 
   if(esid != "") {
     wifiConnectHandler = WiFi.onStationModeGotIP(onWifiConnect);
