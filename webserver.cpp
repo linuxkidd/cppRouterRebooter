@@ -46,6 +46,13 @@ void setup_webServer() {
     request->send(response);
   });
 
+  webServer.on("/powercycle.svg", HTTP_GET, [](AsyncWebServerRequest *request){
+    AsyncWebServerResponse *response = request->beginResponse(200, "image/svg+xml", powercycleicon);
+    response->addHeader("Connection", "close");
+    response->addHeader("Access-Control-Allow-Origin", "*");
+    request->send(response);
+  });
+
   webServer.on("/status", HTTP_GET, [](AsyncWebServerRequest *request) {
     char payload[512];
     char mqtt_server_buf[45];

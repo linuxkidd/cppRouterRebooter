@@ -1,4 +1,8 @@
-#define VERSION "2020-03-30 22:05"
+#define VERSION "2020-03-31 13:15"
+
+const char* powercycleicon =
+"<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
+"<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:cc=\"http://creativecommons.org/ns#\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" width=\"37mm\" height=\"37mm\" version=\"1.1\" viewBox=\"0 0 37 37\"><metadata><rdf:RDF><cc:Work rdf:about=\"\"><dc:format>image/svg+xml</dc:format><dc:type rdf:resource=\"http://purl.org/dc/dcmitype/StillImage\"/><dc:title/></cc:Work></rdf:RDF></metadata><g stroke=\"#000\" stroke-linecap=\"round\"><path transform=\"scale(-1,1)\" d=\"m-20.009 34.769a15.034 15.034 0 0 1-13.048-11.634 15.034 15.034 0 0 1 6.7793-16.113\" fill=\"none\" stroke-dasharray=\"3, 6\" stroke-dashoffset=\"5.1\" stroke-miterlimit=\"2\" stroke-width=\"3\" style=\"paint-order:normal\"/><path d=\"m18.753 34.855a15.034 15.034 0 0 1-14.922-12.25 15.034 15.034 0 0 1 9.4413-16.84\" fill=\"none\" stroke-width=\"3\"/><path d=\"m18.974 5.5898-4.2488-2.5923-0.05752 5.0492z\" stroke-linejoin=\"round\" stroke-width=\"3.3407\" style=\"paint-order:stroke fill markers\"/><path d=\"m18.493 12.082 0.01373 3.7617\" fill=\"none\" stroke-width=\"2\"/><path d=\"m23.88 14.647a8.1234 8.066 0 0 1 2.2232 8.8847 8.1234 8.066 0 0 1-7.5708 5.225 8.1234 8.066 0 0 1-7.6121-5.1655 8.1234 8.066 0 0 1 2.1526-8.9018\" fill=\"none\" stroke-dashoffset=\"15\" stroke-miterlimit=\"2.7\" stroke-width=\"3\" style=\"paint-order:normal\"/></g></svg>";
 
 const char* redirectIndex = 
 "<!doctype html> <html lang=\"en\"> <head> <meta charset=\"utf-8\"> <title>RouterRebooter</title>"
@@ -11,13 +15,14 @@ const char* serverIndex =
 "function fetchStatus() { fetch('/status').then((response) => { return response.json() }).then((data) => { "
 "['wifi_name','wifi_rssi','lastms','countFail','countSuccess','routerReset','epoch','ip','mqtt_server','mqtt_topic_base','test_server','test_port','test_interval','test_fail_reset','test_success_clear','relay_min_on','relay_off_time'].forEach(function(item) { if(item in data) { if(item==\"epoch\") { if(data[item]>100000) { var dt=new Date(); var d = new Date((parseFloat(data[item])-(dt.getTimezoneOffset()*60))*1000); document.getElementById(item).value=d.toISOString().replace(\"T\",\" \").slice(0,19);  } else { document.getElementById(item).value = 'booted for ' + String(data[item])+' seconds'; } } else document.getElementById(item).value = data[item]; }})}); setTimeout(fetchStatus,30000);}"
 "</script>"
+"<link rel=\"icon\" type=\"image/svg+xml\" href=\"/powercycle.svg\">"
 "<style>"
 "table.state tr:nth-child(even) { background: #ddd; }"
 "th { text-align: left; }"
 "tr { text-align: right; }"
 "input { text-align: right; }"
 "input:disabled { color: black; background: transparent; border: 0px; }"
-".custom-file-upload, a { background-color: red; box-shadow: 0 5px 0 darkred; color: white; padding: 1em 1.5em; margin: 2em 1.5em; position: relative; text-decoration: none; font-weight: normal; }"
+".custom-file-upload, a { background-color: red; box-shadow: 0 5px 0 darkred; color: white; padding: 0.5em 0.75em; margin: 0.5em 0.5em; position: relative; text-decoration: none; font-weight: normal; }"
 ".custom-file-upload:hover, a:hover { background-color: #ce0606; cursor: pointer; }"
 ".custom-file-upload.green, a.green { color: #474747; background-color: #00ee77; box-shadow: 0 5px 0 #03ad58; }"
 ".custom-file-upload.green:hover, a.green:hover { background-color: #03ad58; cursor: pointer; }"
@@ -25,7 +30,7 @@ const char* serverIndex =
 "input[type=\"file\"] { display: none; }"
 "</style>"
 "</head><body>"
-"<h1>Linuxkidd's RouterRebooter</h1><br />"
+"<div><img src='/powercycle.svg' style='width: 40px; height:40px; vertical-align: middle; display: inline; float: none;'/><span style='font-size: 2em; vertical-align: middle;'>Linuxkidd's RouterRebooter</span></div>"
 "<h3>Current state: <span='font-size: 0.75em;'>( Version: " VERSION " )</span></h3><hr><table class='state' width='600px'>"
 "<tr><th width='350px'>WiFi SSID</th><td><input type='text' disabled id='wifi_name'></td></tr>"
 "<tr><th>WiFi Strength</th><td><input type='text' disabled id='wifi_rssi'></td></tr>"
