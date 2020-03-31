@@ -1,7 +1,6 @@
 #include <Arduino.h>
 #include "app_config.h"
 #include "main.h"
-//#include "ota.h"
 #include "webserver.h"
 
 WiFiClient wifiClient;
@@ -202,7 +201,7 @@ void mqttSendStatus() {
     char buf[32];
     snprintf(buf,32,"%s/status", topicbuf);
     char payload[256];
-    snprintf(payload,256,"{\"lastms\": %lu, \"countFail\": %lu, \"countSuccess\": %lu, \"routerReset\": %u, \"epoch\": %lu, \"ip\": \"%s\", \"rssi\": %l }", lastms, countFail, countSuccess, routerReset, timeClient.getEpochTime(), WiFi.localIP().toString().c_str(), WiFi.RSSI());
+    snprintf(payload,256,"{\"lastms\": %lu, \"countFail\": %lu, \"countSuccess\": %lu, \"routerReset\": %u, \"epoch\": %lu, \"ip\": \"%s\", \"rssi\": \"%d dBm\" }", lastms, countFail, countSuccess, routerReset, timeClient.getEpochTime(), WiFi.localIP().toString().c_str(), WiFi.RSSI());
     mqttClient.publish(buf,0,1,payload);
   }
 }

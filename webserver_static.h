@@ -1,4 +1,4 @@
-#define VERSION "2020-03-30 21:50"
+#define VERSION "2020-03-30 22:05"
 
 const char* redirectIndex = 
 "<!doctype html> <html lang=\"en\"> <head> <meta charset=\"utf-8\"> <title>RouterRebooter</title>"
