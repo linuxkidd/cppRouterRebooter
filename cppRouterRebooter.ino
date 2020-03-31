@@ -210,8 +210,18 @@ void mqttSendStatus() {
     mqtt_topic_base.toCharArray(topicbuf,32);
     char buf[32];
     snprintf(buf,32,"%s/status", topicbuf);
+    char esid_buf[128];
+    esid.toCharArray(esid_buf,128);
     char payload[256];
-    snprintf(payload,256,"{\"lastms\": %lu, \"countFail\": %lu, \"countSuccess\": %lu, \"routerReset\": %u, \"epoch\": %lu, \"ip\": \"%s\", \"rssi\": \"%d dBm\" }", lastms, countFail, countSuccess, routerReset, timeClient.getEpochTime(), WiFi.localIP().toString().c_str(), WiFi.RSSI());
+    snprintf(payload,256,
+      "{\"lastms\": %lu, "
+      "\"countFail\": %lu, "
+      "\"countSuccess\": %lu, "
+      "\"routerReset\": %u, "
+      "\"epoch\": %lu, "
+      "\"ip\": \"%s\", "
+      "\"wifi\": \"%s\", "
+      "\"rssi\": \"%d dBm\" }", lastms, countFail, countSuccess, routerReset, timeClient.getEpochTime(), WiFi.localIP().toString().c_str(), esid_buf, WiFi.RSSI());
     mqttClient.publish(buf,0,1,payload);
   }
 }
@@ -226,7 +236,6 @@ void onTCPConnect(void* arg, AsyncClient* tcpClient) {
       countFail = 0;
       countSuccess = 0;
     } else {
-      countFail --;
       countSuccess ++;
     }
     ledSetToggleRate();

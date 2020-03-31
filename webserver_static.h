@@ -1,4 +1,4 @@
-#define VERSION "2020-03-31 13:15"
+#define VERSION "2020-03-31 14:00"
 
 const char* powercycleicon =
 "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
