@@ -174,8 +174,12 @@ void onMqttConnect(bool sessionPresent) {
   char topicbuf[32];
   mqtt_topic_base.toCharArray(topicbuf,32);
   char buf[32];
-  snprintf(buf,32,"%s/cmd", topicbuf);
+  snprintf(buf,32,"%s/switch/cmd", topicbuf);
   uint16_t packetIdSub = mqttClient.subscribe(buf, 2);
+  Serial.print("Subscribing at QoS 2, packetId: ");
+  Serial.println(packetIdSub);
+  snprintf(buf,32,"%s/esp/cmd", topicbuf);
+  packetIdSub = mqttClient.subscribe(buf, 2);
   Serial.print("Subscribing at QoS 2, packetId: ");
   Serial.println(packetIdSub);
   snprintf(buf,32,"%s/availability", topicbuf);
@@ -197,10 +201,30 @@ void onMqttMessage(char* topic, char* payload, AsyncMqttClientMessageProperties 
   Serial.print("  ");
   Serial.println(payload[0], HEX);
 
-  if(payload[0] == 0x31) {
-    relayTimer.detach();
-    routerReset = 1;
-    routerResetRoutine();
+  char * tpart;
+  char cmdfor[8];
+  tpart = strtok(topic,"/");
+  unsigned int tidx=0;
+  while(tpart != NULL) {
+    if(tidx == 1) {
+      strncpy(cmdfor,tpart,8);
+      break;
+    }
+    tidx++;
+    tpart = strtok(NULL,"/");
+  }
+
+  if(strncmp(cmdfor,"switch",8) == 0) {
+    if(payload[0] == 0x30) {
+      relayTimer.detach();
+      routerReset = 1;
+      routerResetRoutine();
+    }
+  }
+  if(strncmp(cmdfor, "esp", 8) == 0) {
+    if(payload[0] == 0x30) {
+      rebootESP = 1;
+    }
   }
 }
 
