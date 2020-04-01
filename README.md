@@ -5,6 +5,7 @@ Sonoff S31 based configurable Router / Modem rebooter with MQTT
 ### Features
 * Power cycle's connected device on internet failure
 * Publishes status udpates via MQTT and local web page
+* Firmware upgradable via the Web Interface
 
 ### WiFi Details
 
