@@ -28,7 +28,8 @@ After it joins your wifi, find its IP and load it in your browser.
     * prevent power cycling before device would normally have been online
 * Device off-time
     * How long to leave the device off to ensure a proper reset
-### MQTT Published topics: * RouterRebooter/available
+### MQTT Published topics:
+* RouterRebooter/available
     * online
     * offline
 * RouterRebooter/status
