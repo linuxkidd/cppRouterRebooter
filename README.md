@@ -6,6 +6,14 @@ Sonoff S31 based configurable Router / Modem rebooter with MQTT
 * Power cycle's connected device on internet failure
 * Publishes status udpates via MQTT and local web page
 
+### WiFi Details
+
+**WiFi SSID:** `RouterRebooter_XXXXXX`
+**WiFi Password:** `routerrebooter`
+**URL:** `192.168.4.1`
+
+After it joins your wifi, find its IP and load it in your browser.
+
 ### Configurability
 * MQTT Server and Topic base
 * Test server and port
