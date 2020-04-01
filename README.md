@@ -28,9 +28,7 @@ After it joins your wifi, find its IP and load it in your browser.
     * prevent power cycling before device would normally have been online
 * Device off-time
     * How long to leave the device off to ensure a proper reset
-
-### MQTT Published topics:
-* RouterRebooter/available
+### MQTT Published topics: * RouterRebooter/available
     * online
     * offline
 * RouterRebooter/status
@@ -51,4 +49,4 @@ After it joins your wifi, find its IP and load it in your browser.
     * Set to 0 to reboot the ESP module
 
 ### Web interface screenshot:
-![RouterRebooter Screenshot](https://github.com/linuxkidd/cppRouterRebooter/raw/master/images/cppRouterRebooter_Screenshot.png))
+![RouterRebooter Screenshot](https://github.com/linuxkidd/cppRouterRebooter/raw/master/images/cppRouterRebooter_Screenshot.png)
