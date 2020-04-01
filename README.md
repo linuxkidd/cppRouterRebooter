@@ -48,3 +48,6 @@ After it joins your wifi, find its IP and load it in your browser.
     * Set to 0 to reboot the connected device, will auto-turn back on
 * RouterRebooter/esp/cmd
     * Set to 0 to reboot the ESP module
+
+### Web interface screenshot:
+![RouterRebooter Screenshot](https://github.com/linuxkidd/cppRouterRebooter/raw/master/images/cppRouterRebooter_Screenshot.png))
