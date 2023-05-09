@@ -49,5 +49,12 @@ After it joins your wifi, find its IP and load it in your browser.
 * RouterRebooter/esp/cmd
     * Set to 0 to reboot the ESP module
 
+### Factory Reset
+* If you change your WiFi Network name, or otherwise need to reset the RouterRebooter to default settings:
+   * Slowly press the S31's power button 4 times inside of 5 seconds.
+   * Within 30 seconds, you should see the `RouterRebooter_XXXXXX` WiFi Network name again.
+   * Re-connect and configure for your new WiFi network name.
+   * Once on your new WiFi network, connect and restore your desired settings.
+
 ### Web interface screenshot:
 ![RouterRebooter Screenshot](https://github.com/linuxkidd/cppRouterRebooter/raw/master/images/cppRouterRebooter_Screenshot.png)
